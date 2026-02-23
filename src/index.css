@@ -1,0 +1,184 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
+
+/* AuditWise Design System — Light Blue Theme */
+
+@layer base {
+  :root {
+    /* Core surfaces */
+    --background: 210 40% 98%;
+    --foreground: 220 40% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 40% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 40% 12%;
+
+    /* Brand — Blue */
+    --primary: 217 91% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 30% 93%;
+    --secondary-foreground: 220 40% 20%;
+
+    --muted: 210 30% 94%;
+    --muted-foreground: 215 20% 48%;
+
+    --accent: 217 91% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 25% 88%;
+    --input: 214 25% 88%;
+    --ring: 217 91% 50%;
+
+    --radius: 0.75rem;
+
+    /* Custom tokens */
+    --surface-1: 210 40% 98%;
+    --surface-2: 210 35% 95%;
+    --surface-3: 210 30% 91%;
+
+    /* Blue accent tokens (replaces amber) */
+    --blue: 217 91% 50%;
+    --blue-dim: 217 80% 42%;
+    --blue-glow: 217 100% 62%;
+    --blue-light: 217 91% 97%;
+
+    --navy: 220 40% 15%;
+    --navy-light: 220 35% 25%;
+
+    --success: 142 70% 40%;
+    --warning: 38 92% 50%;
+    --info: 200 80% 50%;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(210 40% 98%) 0%, hsl(210 35% 95%) 50%, hsl(210 40% 98%) 100%);
+    --gradient-blue: linear-gradient(135deg, hsl(217 91% 50%), hsl(230 90% 58%));
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(210 35% 97%));
+    --gradient-glow: radial-gradient(ellipse at center, hsl(217 91% 50% / 0.08) 0%, transparent 70%);
+    --gradient-feature: linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(210 35% 97%) 100%);
+
+    /* Shadows */
+    --shadow-blue: 0 0 40px hsl(217 91% 50% / 0.15);
+    --shadow-card: 0 4px 24px hsl(217 30% 20% / 0.08);
+    --shadow-glow: 0 0 80px hsl(217 91% 50% / 0.10);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+    background: hsl(var(--background));
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Syne', sans-serif;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: 'Syne', sans-serif;
+  }
+
+  .text-gradient-blue {
+    background: var(--gradient-blue);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Keep amber alias for backward compat (now points to blue) */
+  .text-gradient-amber {
+    background: var(--gradient-blue);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glow-blue {
+    box-shadow: var(--shadow-blue);
+  }
+
+  .bg-surface-1 {
+    background: hsl(var(--surface-1));
+  }
+
+  .bg-surface-2 {
+    background: hsl(var(--surface-2));
+  }
+
+  .bg-surface-3 {
+    background: hsl(var(--surface-3));
+  }
+
+  .border-blue {
+    border-color: hsl(var(--blue) / 0.35);
+  }
+
+  .border-blue-bright {
+    border-color: hsl(var(--blue));
+  }
+
+  /* Keep amber class aliases pointing to blue */
+  .border-amber {
+    border-color: hsl(var(--blue) / 0.35);
+  }
+
+  .border-amber-bright {
+    border-color: hsl(var(--blue));
+  }
+
+  .bg-gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  .bg-gradient-amber {
+    background: var(--gradient-blue);
+  }
+
+  .bg-gradient-blue {
+    background: var(--gradient-blue);
+  }
+
+  .bg-gradient-card {
+    background: var(--gradient-card);
+  }
+
+  .shadow-amber {
+    box-shadow: var(--shadow-blue);
+  }
+
+  .shadow-blue {
+    box-shadow: var(--shadow-blue);
+  }
+
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+}
