@@ -12,8 +12,10 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border backdrop-blur-xl"
-      style={{ background: "hsl(var(--background) / 0.92)" }}>
+    <nav
+      className="fixed top-0 left-0 right-0 z-50 border-b border-border backdrop-blur-xl"
+      style={{ background: "hsl(var(--background) / 0.92)" }}
+    >
       <div className="container mx-auto flex items-center justify-between py-4">
         {/* Logo */}
         <a href="#" className="flex items-center gap-2 group">
@@ -45,6 +47,12 @@ const Navbar = () => {
             className="px-5 py-2.5 rounded-lg text-sm font-semibold bg-gradient-blue text-primary-foreground shadow-blue hover:opacity-90 transition-all duration-200 hover:scale-105"
           >
             Get Started
+          </a>
+          <a
+            href="https://admin.auditwise.in/login"
+            className="px-5 py-2.5 rounded-lg text-sm font-semibold bg-gradient-blue text-primary-foreground shadow-blue hover:opacity-90 transition-all duration-200 hover:scale-105"
+          >
+            Sign In
           </a>
         </div>
 
