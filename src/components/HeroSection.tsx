@@ -1,12 +1,27 @@
+import { useState, useEffect } from "react";
 import heroDashboard from "@/assets/dashboard.png";
+import heroSlide2 from "@/assets/audits.png";
+import heroSlide3 from "@/assets/analytics.png";
+import heroSlide4 from "@/assets/connect.png";
+import graphs from "@/assets/graph.png";
 import {
   ArrowRight,
   CheckCircle,
+  ChevronLeft,
+  ChevronRight,
   Database,
   FileSpreadsheet,
   Mail,
   Shield,
 } from "lucide-react";
+
+const slides = [
+  { src: heroDashboard, alt: "AuditWise Main Dashboard" },
+  { src: graphs, alt: "AuditWise Graphs" },
+  { src: heroSlide2, alt: "Audit Records & Status Tracking" },
+  { src: heroSlide3, alt: "Analytics & Compliance Dashboard" },
+  { src: heroSlide4, alt: "Audit Creation & DB Connectivity" },
+];
 
 const stats = [
   { value: "4", label: "Role Types" },
@@ -16,8 +31,20 @@ const stats = [
 ];
 
 const HeroSection = () => {
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % slides.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const prev = () => setCurrent((c) => (c - 1 + slides.length) % slides.length);
+  const next = () => setCurrent((c) => (c + 1) % slides.length);
+
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-20">
+    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-20 py-10">
       {/* Background glow */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -31,7 +58,7 @@ const HeroSection = () => {
         }}
       />
 
-      {/* Grid lines decoration */}
+      {/* Grid lines */}
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.03]"
         style={{
@@ -42,10 +69,6 @@ const HeroSection = () => {
       />
 
       <div className="container mx-auto text-center relative z-10 px-4">
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-2  animate-fade-in"></div>
-
-        {/* Headline */}
         <h1
           className="font-display text-5xl md:text-7xl lg:text-8xl font-bold leading-[1.05] mb-6 animate-fade-up text-foreground"
           style={{ animationDelay: "0.1s" }}
@@ -75,8 +98,7 @@ const HeroSection = () => {
             href="#features"
             className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-primary-foreground bg-gradient-blue shadow-blue hover:opacity-90 transition-all hover:scale-105"
           >
-            Explore Features
-            <ArrowRight className="w-4 h-4" />
+            Explore Features <ArrowRight className="w-4 h-4" />
           </a>
           <a
             href="#roles"
@@ -86,7 +108,6 @@ const HeroSection = () => {
           </a>
         </div>
 
-        {/* Quick features */}
         <div
           className="flex flex-wrap justify-center gap-6 mb-16 animate-fade-up"
           style={{ animationDelay: "0.4s" }}
@@ -123,25 +144,66 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Dashboard preview */}
+      {/* Dashboard Slider */}
       <div
         className="container mx-auto px-4 mt-20 animate-fade-up"
         style={{ animationDelay: "0.6s" }}
       >
         <div className="relative max-w-5xl mx-auto">
-          {/* Glow behind image */}
+          {/* Glow behind */}
           <div
             className="absolute -inset-4 rounded-3xl opacity-20 blur-2xl"
             style={{ background: "var(--gradient-blue)" }}
           />
-          <div className="relative rounded-2xl overflow-hidden border border-primary/15 shadow-blue">
-            <img
-              src={heroDashboard}
-              alt="AuditWise Dashboard"
-              className="w-full object-cover animate-float"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
+
+          <div className="relative rounded-2xl overflow-hidden border border-primary/15 shadow-blue p-4">
+            {/* Slides */}
+            <div className="relative aspect-video overflow-hidden h-fit ">
+              {slides.map((slide, i) => (
+                <img
+                  key={i}
+                  src={slide.src}
+                  alt={slide.alt}
+                  className={`absolute inset-0 object-cover transition-opacity duration-700 ${
+                    i === current ? "opacity-100" : "opacity-0"
+                  }`}
+                />
+              ))}
+              <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
+            </div>
+
+            {/* Slider Controls */}
+            <button
+              onClick={prev}
+              className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-card/80 backdrop-blur border border-border flex items-center justify-center text-foreground hover:bg-card transition-colors z-10"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              onClick={next}
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-card/80 backdrop-blur border border-border flex items-center justify-center text-foreground hover:bg-card transition-colors z-10"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+
+            {/* Dots */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+              {slides.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCurrent(i)}
+                  className={`w-2.5 h-2.5 rounded-full transition-all ${
+                    i === current ? "bg-primary w-6" : "bg-foreground/30"
+                  }`}
+                />
+              ))}
+            </div>
           </div>
+
+          {/* Slide caption */}
+          <p className="text-center text-sm text-muted-foreground mt-4 font-medium">
+            {slides[current].alt}
+          </p>
         </div>
       </div>
     </section>

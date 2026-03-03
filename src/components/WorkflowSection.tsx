@@ -44,7 +44,7 @@ const steps = [
 
 const WorkflowSection = () => {
   return (
-    <section id="workflow" className="py-32 relative">
+    <section id="workflow" className="py-20 relative">
       <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/25 to-transparent" />
 
       <div className="container mx-auto px-4">

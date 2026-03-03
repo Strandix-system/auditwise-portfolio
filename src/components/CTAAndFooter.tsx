@@ -3,16 +3,25 @@ import {
   Shield,
   Github,
   Linkedin,
-  Twitter,
   CheckCircle,
   AlertCircle,
   Loader2,
   Mail,
   Phone,
   MapPin,
+  Instagram,
+  Youtube,
+  Pin,
 } from "lucide-react";
 import { useContactForm } from "../hooks/useContactForm";
-
+import { useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 const platformLinks = ["Features", "Roles", "Workflow", "Analytics"];
 
 // ─── Field helpers ────────────────────────────────────────────────────────────
@@ -37,6 +46,20 @@ function Field({ label, error, children }) {
   );
 }
 
+const socialLinks = [
+  {
+    icon: Linkedin,
+    url: "https://www.linkedin.com/company/strandix-system-india-m",
+  },
+  {
+    icon: Instagram,
+    url: "https://www.instagram.com/strandixsystem/",
+  },
+  {
+    icon: Youtube,
+    url: "https://www.youtube.com/@strandixsystem",
+  },
+];
 // ─── Contact Form ─────────────────────────────────────────────────────────────
 
 function ContactForm() {
@@ -125,10 +148,13 @@ function ContactForm() {
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
 const CTAAndFooter = () => {
+  const [privacyOpen, setPrivacyOpen] = useState(false);
+  const [termsOpen, setTermsOpen] = useState(false);
+
   return (
     <>
       {/* CTA / Contact Section */}
-      <section id="contact" className="py-32 relative">
+      <section id="contact" className="py-20 relative">
         <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/25 to-transparent" />
         <div className="container mx-auto px-4">
           <div className="relative rounded-3xl border border-primary/20 overflow-hidden bg-card shadow-card">
@@ -151,15 +177,6 @@ const CTAAndFooter = () => {
             <div className="relative z-10 grid lg:grid-cols-2 gap-0">
               {/* Left */}
               <div className="py-16 px-10 lg:px-14 flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-border">
-                <div
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/25 mb-8 w-fit"
-                  style={{ background: "hsl(217 91% 50% / 0.07)" }}
-                >
-                  <Shield className="w-4 h-4 text-primary" />
-                  <span className="text-sm font-medium text-primary">
-                    Start Your Audit Journey
-                  </span>
-                </div>
                 <h2 className="font-display text-4xl md:text-5xl font-bold mb-5 leading-tight">
                   Ready to Transform
                   <br />
@@ -252,10 +269,12 @@ const CTAAndFooter = () => {
 
               {/* Social Icons */}
               <div className="flex items-center gap-3">
-                {[Github, Linkedin, Twitter].map((Icon, i) => (
+                {socialLinks.map(({ icon: Icon, url }, i) => (
                   <a
                     key={i}
-                    href="#"
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-9 h-9 rounded-lg border border-border bg-card flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/30 transition-all"
                   >
                     <Icon className="w-4 h-4" />
@@ -273,16 +292,223 @@ const CTAAndFooter = () => {
               © 2024 Strandix System India, Inc. All rights reserved.
             </p>
             <div className="flex items-center gap-5 text-xs text-muted-foreground">
-              <a href="#" className="hover:text-foreground transition-colors">
+              <button
+                onClick={() => setPrivacyOpen(true)}
+                className="hover:text-foreground transition-colors cursor-pointer"
+              >
                 Privacy Policy
-              </a>
-              <a href="#" className="hover:text-foreground transition-colors">
+              </button>
+              <button
+                onClick={() => setTermsOpen(true)}
+                className="hover:text-foreground transition-colors cursor-pointer"
+              >
                 Terms of Service
-              </a>
+              </button>
             </div>
           </div>
         </div>
       </footer>
+      <Dialog open={privacyOpen} onOpenChange={setPrivacyOpen}>
+        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-display">
+              Privacy Policy
+            </DialogTitle>
+            <DialogDescription>Last updated: March 2026</DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-6 text-sm text-muted-foreground leading-relaxed">
+            <p className="text-foreground">
+              Audit Wise (“we,” “our,” “us”) values your privacy. This Privacy
+              Policy explains how we collect, use, and protect your information
+              when you use our software and services.
+            </p>
+
+            <div>
+              <h3 className="text-base font-semibold text-foreground mb-2">
+                1. Information We Collect
+              </h3>
+              <ul className="list-disc pl-6 space-y-2">
+                <li>Name, email, phone number, company details</li>
+                <li>Login credentials</li>
+                <li>Billing information</li>
+                <li>Audit data and documents uploaded</li>
+                <li>Usage data (IP address, device, browser type)</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-base font-semibold text-foreground mb-2">
+                2. How We Use Your Information
+              </h3>
+              <ul className="list-disc pl-6 space-y-2">
+                <li>Provide and improve our services</li>
+                <li>Manage accounts and process payments</li>
+                <li>Communicate updates and support</li>
+                <li>Ensure security and prevent fraud</li>
+                <li>Comply with legal requirements</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-base font-semibold text-foreground mb-2">
+                3. Data Sharing
+              </h3>
+              <p>
+                We do not sell your data. We may share it with trusted service
+                providers (hosting, payment processors) or when required by law.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-base font-semibold text-foreground mb-2">
+                4. Data Security
+              </h3>
+              <p>
+                We use appropriate technical and organizational measures to
+                protect your data.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-base font-semibold text-foreground mb-2">
+                5. Your Rights
+              </h3>
+              <p>
+                You may request access, correction, or deletion of your personal
+                data by contacting us.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-base font-semibold text-foreground mb-2">
+                6. Contact Us
+              </h3>
+              <p className="mb-2">For privacy-related questions:</p>
+              <ul className="space-y-2">
+                <li>
+                  <Mail className="inline mr-2" size={14} />
+                  Email:{" "}
+                  <a
+                    href="mailto:info@strandixsystem.com"
+                    className="text-primary hover:underline"
+                  >
+                    info@strandixsystem.com
+                  </a>
+                </li>
+                <li>
+                  <Pin className="inline mr-2" size={14} />
+                  Address: No. 103, Shri Krishna Classic, First Floor, A.B.
+                  Road, Above Axis Bank, Near CHL Hospital, LIG Square,
+                  Indore-452001 (M.P.)
+                </li>
+              </ul>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Terms of Service Dialog */}
+      <Dialog open={termsOpen} onOpenChange={setTermsOpen}>
+        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-display">
+              Terms of Service
+            </DialogTitle>
+            <DialogDescription>Last updated: March 2026</DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-6 text-sm text-muted-foreground leading-relaxed">
+            <p className="text-foreground">
+              Welcome to Audit Wise. By accessing or using our software and
+              services, you agree to these Terms of Service.
+            </p>
+
+            <div>
+              <h3 className="text-base font-semibold text-foreground mb-2">
+                1. Use of Service
+              </h3>
+              <p>
+                Audit Wise provides audit management and automation tools. You
+                agree to use the service only for lawful business purposes and
+                not to misuse, copy, or disrupt the platform.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-base font-semibold text-foreground mb-2">
+                2. Account Responsibility
+              </h3>
+              <p>
+                You are responsible for maintaining the confidentiality of your
+                login credentials and for all activities under your account.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-base font-semibold text-foreground mb-2">
+                3. Subscription & Payments
+              </h3>
+              <p>
+                Certain features may require a paid subscription. Fees are
+                billed as agreed and are non-refundable unless otherwise stated.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-base font-semibold text-foreground mb-2">
+                4. User Data
+              </h3>
+              <p>
+                You retain ownership of the data you upload. By using the
+                service, you grant us permission to process and store data
+                solely to provide the service.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-base font-semibold text-foreground mb-2">
+                5. Intellectual Property
+              </h3>
+              <p>
+                All software, branding, and content related to Audit Wise remain
+                the property of the company. You may not copy, modify, or
+                distribute without permission.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-base font-semibold text-foreground mb-2">
+                6. Limitation of Liability
+              </h3>
+              <p>
+                Audit Wise is provided “as is.” We are not liable for indirect,
+                incidental, or consequential damages arising from use of the
+                service.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-base font-semibold text-foreground mb-2">
+                7. Termination
+              </h3>
+              <p>
+                We may suspend or terminate accounts that violate these terms.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-base font-semibold text-foreground mb-2">
+                8. Changes to Terms
+              </h3>
+              <p>
+                We may update these Terms from time to time. Continued use of
+                the service means you accept the revised terms.
+              </p>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </>
   );
 };

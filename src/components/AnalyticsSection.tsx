@@ -103,7 +103,7 @@ const tableData = [
 
 const AnalyticsSection = () => {
   return (
-    <section id="analytics" className="py-32 relative bg-surface-2">
+    <section id="analytics" className="py-16 relative bg-surface-2">
       <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/25 to-transparent" />
       <div className="absolute left-0 right-0 bottom-0 h-px bg-gradient-to-r from-transparent via-primary/25 to-transparent" />
       <div

@@ -74,7 +74,7 @@ const features = [
 
 const FeaturesSection = () => {
   return (
-    <section id="features" className="py-32 relative">
+    <section id="features" className="py-24 relative">
       {/* Section bg accent */}
       <div
         className="absolute inset-0 pointer-events-none"

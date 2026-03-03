@@ -1,23 +1,7 @@
 import { Crown, UserCog, ClipboardList, Eye, Check } from "lucide-react";
 
 const roles = [
-  // {
-  //   icon: Crown,
-  //   title: "Superadmin",
-  //   badge: "Platform Control",
-  //   badgeStyle: { color: "hsl(270 70% 55%)", borderColor: "hsl(270 70% 55% / 0.3)", background: "hsl(270 70% 55% / 0.06)" },
-  //   iconStyle: { background: "hsl(270 70% 55% / 0.1)", borderColor: "hsl(270 70% 55% / 0.25)", color: "hsl(270 70% 55%)" },
-  //   description:
-  //     "The highest authority on the platform. Superadmin manages the entire system, creates and manages admins, configures global settings, and has full visibility across all organizations and audit activities.",
-  //   permissions: [
-  //     "Full platform administration",
-  //     "Create & manage Admin accounts",
-  //     "View all organization audits",
-  //     "Configure system-wide settings",
-  //     "Monitor all role activities",
-  //     "Manage billing & subscriptions",
-  //   ],
-  // },
+  
   {
     icon: UserCog,
     title: "Admin",
@@ -37,8 +21,6 @@ const roles = [
     permissions: [
       "Manage Auditor & Reviewer accounts",
       "View org audit reports",
-      // "Configure org-level settings",
-      // "Monitor team performance",
       "Access organization analytics",
       "Control user permissions",
     ],
@@ -87,18 +69,14 @@ const roles = [
     permissions: [
       "View assigned audit items",
       "Approve or reject entries",
-      // "Add review comments",
       "Access via email credentials",
-      // "Track personal review history",
-      // "Receive real-time notifications",
     ],
   },
 ];
 
 const RolesSection = () => {
   return (
-    <section id="roles" className="py-32 relative bg-surface-2">
-      {/* Decorative line */}
+    <section id="roles" className="py-10 relative bg-surface-2">
       <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/25 to-transparent" />
       <div className="absolute left-0 right-0 bottom-0 h-px bg-gradient-to-r from-transparent via-primary/25 to-transparent" />
 
