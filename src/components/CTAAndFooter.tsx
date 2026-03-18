@@ -177,7 +177,7 @@ const CTAAndFooter = () => {
             <div className="relative z-10 grid lg:grid-cols-2 gap-0">
               {/* Left */}
               <div className="py-16 px-10 lg:px-14 flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-border">
-                <h2 className="font-display text-4xl md:text-5xl font-bold mb-5 leading-tight">
+                <h2 className="text-4xl md:text-5xl font-bold mb-5 leading-tight">
                   Ready to Transform
                   <br />
                   <span className="text-gradient-blue">
@@ -289,7 +289,7 @@ const CTAAndFooter = () => {
         <div className="border-t border-border">
           <div className="container mx-auto px-4 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
             <p className="text-xs text-muted-foreground">
-              © 2024 Strandix System India, Inc. All rights reserved.
+              © 2026 Strandix System India, Inc. All rights reserved.
             </p>
             <div className="flex items-center gap-5 text-xs text-muted-foreground">
               <button

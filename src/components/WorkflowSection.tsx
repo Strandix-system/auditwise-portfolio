@@ -4,7 +4,6 @@ import {
   Mail,
   CheckCircle2,
   BarChart3,
-  ArrowRight,
 } from "lucide-react";
 
 const steps = [
@@ -15,6 +14,9 @@ const steps = [
     description:
       "The auditor uploads an Excel file or connects directly to a live database (PostgreSQL, MySQL, MongoDB, etc.) to generate a structured audit dataset.",
     detail: "Excel → Parse → Validate → Audit Created",
+    accent: "hsl(217 91% 48%)",
+    accentBg: "hsl(217 91% 48% / 0.08)",
+    accentBorder: "hsl(217 91% 48% / 0.2)",
   },
   {
     step: "02",
@@ -22,7 +24,10 @@ const steps = [
     title: "Assign & Notify Reviewers",
     description:
       "The auditor selects reviewers from their panel and sends the audit package via email. Each reviewer receives a secure link with their personal credentials.",
-    detail: "Auditor selects reviewers → Sends credentials → Email delivered",
+    detail: "Select reviewers → Credentials sent → Email delivered",
+    accent: "hsl(38 92% 52%)",
+    accentBg: "hsl(38 92% 52% / 0.08)",
+    accentBorder: "hsl(38 92% 52% / 0.2)",
   },
   {
     step: "03",
@@ -30,44 +35,94 @@ const steps = [
     title: "Reviewer Acts on Audit",
     description:
       "Reviewers log in using their email and password, access their assigned audits, and perform approve or reject actions on each item with optional comments.",
-    detail: "Login → Review items → Approve / Reject with comments",
+    detail: "Login → Review → Approve / Reject",
+    accent: "hsl(142 60% 38%)",
+    accentBg: "hsl(142 60% 38% / 0.08)",
+    accentBorder: "hsl(142 60% 38% / 0.2)",
   },
   {
     step: "04",
     icon: BarChart3,
-    title: "Analytics",
+    title: "Analytics & Reporting",
     description:
-      "Completed actions are aggregated into visual dashboards. Track audit progress, reviewer response rates, approval ratios, and compliance trends in real time.",
-    detail: "Actions logged → Analytics updated",
+      "Completed actions are aggregated into visual dashboards. Track progress, reviewer response rates, approval ratios, and compliance trends in real time.",
+    detail: "Actions logged → Dashboards updated",
+    accent: "hsl(270 70% 55%)",
+    accentBg: "hsl(270 70% 55% / 0.08)",
+    accentBorder: "hsl(270 70% 55% / 0.2)",
   },
 ];
 
 const WorkflowSection = () => {
   return (
-    <section id="workflow" className="py-20 relative">
-      <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/25 to-transparent" />
+    <section id="workflow" className="py-16 relative overflow-hidden">
+      {/* ── Web dot grid background ── */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: `radial-gradient(circle, hsl(217 91% 50% / 0.15) 1px, transparent 1px)`,
+          backgroundSize: "28px 28px",
+        }}
+      />
 
-      <div className="container mx-auto px-4">
+      {/* Fade vignette over dots — edges dark, centre visible */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 80% 70% at 50% 50%, transparent 30%, hsl(var(--background)/0.85) 100%)",
+        }}
+      />
+
+      {/* Top + bottom edge fades */}
+      <div
+        className="absolute top-0 left-0 right-0 h-32 pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(to bottom, hsl(var(--background)), transparent)",
+        }}
+      />
+      <div
+        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(to top, hsl(var(--background)), transparent)",
+        }}
+      />
+
+      <div className="container relative z-10">
         {/* Header */}
-        <div className="text-center mb-20">
-          <h2 className="font-display text-4xl md:text-5xl font-bold mb-5">
-            The <span className="text-gradient-blue">AuditWise</span> Workflow
-          </h2>
-          <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-            From data import to final approval in four clear steps. Simple for
-            teams, powerful for compliance.
-          </p>
+        <div className="flex flex-col items-center gap-8 pb-12">
+          <div>
+            <h2
+              className="text-4xl md:text-5xl font-black leading-tight tracking-tight mb-4"
+              style={{ fontFamily: "'Bebas Neue', 'Arial Black', sans-serif" }}
+            >
+              THE <span className="text-gradient-blue">AUDITWISE</span> WORKFLOW
+            </h2>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              From data import to final approval in four clear steps. Simple for
+              teams, powerful for compliance.
+            </p>
+          </div>
         </div>
 
-        {/* Steps */}
+        {/* Steps — zigzag */}
         <div className="relative">
-          {/* Connecting line */}
-          <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary/25 via-primary/10 to-transparent -translate-x-1/2" />
+          {/* Centre vertical connector */}
+          <div
+            className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 pointer-events-none"
+            style={{
+              background:
+                "linear-gradient(to bottom, transparent, hsl(217 91% 50% / 0.2) 15%, hsl(217 91% 50% / 0.2) 85%, transparent)",
+            }}
+          />
 
-          <div className="space-y-12">
+          <div className="space-y-14">
             {steps.map((step, index) => {
               const Icon = step.icon;
               const isEven = index % 2 === 1;
+
               return (
                 <div
                   key={step.step}
@@ -75,49 +130,99 @@ const WorkflowSection = () => {
                     isEven ? "lg:flex-row-reverse" : ""
                   }`}
                 >
-                  {/* Content */}
-                  <div className={`flex-1 ${isEven ? "lg:text-right" : ""}`}>
-                    <div className="rounded-2xl border border-border bg-card p-8 hover:border-primary/25 transition-all duration-300 group hover:shadow-blue shadow-card">
+                  {/* Card */}
+                  <div className="flex-1">
+                    <div
+                      className="group relative rounded-2xl border bg-card p-8 transition-all duration-300 overflow-hidden"
+                      style={{ borderColor: step.accentBorder }}
+                    >
+                      {/* Corner dot grid accent — faint, inside card */}
                       <div
-                        className={`flex items-start gap-4 mb-4 ${
-                          isEven ? "lg:flex-row-reverse" : ""
-                        }`}
-                      >
+                        className="absolute inset-0 pointer-events-none opacity-30"
+                        style={{
+                          backgroundImage: `radial-gradient(circle, hsl(217 91% 50% / 0.12) 1px, transparent 1px)`,
+                          backgroundSize: "18px 18px",
+                          maskImage: isEven
+                            ? "linear-gradient(to left, rgba(0,0,0,0.6) 0%, transparent 60%)"
+                            : "linear-gradient(to right, rgba(0,0,0,0.6) 0%, transparent 60%)",
+                          WebkitMaskImage: isEven
+                            ? "linear-gradient(to left, rgba(0,0,0,0.6) 0%, transparent 60%)"
+                            : "linear-gradient(to right, rgba(0,0,0,0.6) 0%, transparent 60%)",
+                        }}
+                      />
+
+                      {/* Left accent bar */}
+                      <div
+                        className="absolute top-0 bottom-0 left-0 w-[3px] rounded-l-2xl"
+                        style={{ background: step.accent }}
+                      />
+
+                      {/* Icon + step label row */}
+                      <div className="flex items-start gap-4 mb-5 pl-3">
                         <div
-                          className="w-12 h-12 rounded-xl border flex items-center justify-center flex-shrink-0 group-hover:border-primary/30 transition-colors"
+                          className="w-12 h-12 rounded-xl flex items-center justify-center border shrink-0"
                           style={{
-                            background: "hsl(217 91% 50% / 0.08)",
-                            borderColor: "hsl(217 91% 50% / 0.2)",
+                            background: step.accentBg,
+                            borderColor: step.accentBorder,
                           }}
                         >
-                          <Icon className="w-6 h-6 text-primary" />
+                          <Icon
+                            className="w-6 h-6"
+                            style={{ color: step.accent }}
+                          />
                         </div>
                         <div>
-                          <span className="text-xs font-bold text-primary/60 uppercase tracking-widest">
+                          <span
+                            className="text-[10px] font-black uppercase tracking-[0.2em]"
+                            style={{ color: step.accent }}
+                          >
                             Step {step.step}
                           </span>
-                          <h3 className="font-display text-xl font-bold mt-0.5">
+                          <h3 className="text-xl font-bold mt-0.5 text-foreground">
                             {step.title}
                           </h3>
                         </div>
                       </div>
-                      <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+
+                      {/* Description */}
+                      <p className="text-sm text-muted-foreground leading-relaxed mb-5 pl-3">
                         {step.description}
                       </p>
-                      <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-2 border border-border text-xs text-muted-foreground font-mono">
+
+                      {/* Mono detail tag */}
+                      <div
+                        className="inline-flex items-center px-3 py-1.5 rounded-sm text-[11px] font-mono border ml-3"
+                        style={{
+                          background: step.accentBg,
+                          borderColor: step.accentBorder,
+                          color: step.accent,
+                        }}
+                      >
                         {step.detail}
                       </div>
                     </div>
                   </div>
 
-                  {/* Center node */}
-                  <div className="hidden lg:flex w-12 h-12 rounded-full border-2 border-primary/35 bg-card items-center justify-center flex-shrink-0 z-10 shadow-blue">
-                    <span className="font-display font-bold text-sm text-primary">
+                  {/* Centre node */}
+                  <div
+                    className="hidden lg:flex w-12 h-12 rounded-full border-2 bg-card items-center justify-center flex-shrink-0 z-10"
+                    style={{
+                      borderColor: step.accent,
+                      boxShadow: `0 0 0 4px ${step.accentBg}`,
+                    }}
+                  >
+                    <span
+                      className="font-black text-sm"
+                      style={{
+                        fontFamily: "'Bebas Neue', 'Arial Black', sans-serif",
+                        color: step.accent,
+                      }}
+                    >
                       {step.step}
                     </span>
                   </div>
 
-                  {/* Spacer for alternating layout */}
+                  {/* Spacer */}
                   <div className="flex-1 hidden lg:block" />
                 </div>
               );

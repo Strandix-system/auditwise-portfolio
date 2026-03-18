@@ -1,211 +1,228 @@
 import { useState, useEffect } from "react";
-import heroDashboard from "@/assets/dashboard.png";
-import heroSlide2 from "@/assets/audits.png";
-import heroSlide3 from "@/assets/analytics.png";
-import heroSlide4 from "@/assets/connect.png";
-import graphs from "@/assets/graph.png";
 import {
   ArrowRight,
   CheckCircle,
-  ChevronLeft,
-  ChevronRight,
   Database,
   FileSpreadsheet,
   Mail,
-  Shield,
 } from "lucide-react";
 
-const slides = [
-  { src: heroDashboard, alt: "AuditWise Main Dashboard" },
-  { src: graphs, alt: "AuditWise Graphs" },
-  { src: heroSlide2, alt: "Audit Records & Status Tracking" },
-  { src: heroSlide3, alt: "Analytics & Compliance Dashboard" },
-  { src: heroSlide4, alt: "Audit Creation & DB Connectivity" },
-];
-
-const stats = [
-  { value: "4", label: "Role Types" },
-  { value: "100%", label: "Audit Coverage" },
-  { value: "Real-time", label: "Analytics" },
-  { value: "Multi-DB", label: "Integration" },
+const rotatingContent = [
+  {
+    line1: "SMARTER AUDITS.",
+    line2: "STRONGER CONTROL.",
+    sub: "AuditWise unifies your audit lifecycle—from data ingestion to review and approval—with role-based access, powerful analytics, and multi-database connectivity.",
+  },
+  {
+    line1: "ROLE-BASED ACCESS",
+    line2: "ZERO COMPROMISE.",
+    sub: "Every user sees exactly what they need. Admin, Auditor, and Reviewer roles—each with granular, scoped permissions built for real compliance teams.",
+  },
+  {
+    line1: "IMPORT & ASSIGN",
+    line2: "REVIEW & APPROVE",
+    sub: "Upload Excel files or connect live databases, send audits via email with secure credentials, and track every approve and reject in real time.",
+  },
+  {
+    line1: "REAL-TIME ANALYTICS",
+    line2: "FULL VISIBILITY",
+    sub: "Purpose-built dashboards for every role. Monitor pending files, approval ratios, reviewer progress, and compliance trends—all in one place.",
+  },
 ];
 
 const HeroSection = () => {
-  const [current, setCurrent] = useState(0);
+  const [idx, setIdx] = useState(0);
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % slides.length);
+    const interval = setInterval(() => {
+      setVisible(false);
+      setTimeout(() => {
+        setIdx((i) => (i + 1) % rotatingContent.length);
+        setVisible(true);
+      }, 350);
     }, 4000);
-    return () => clearInterval(timer);
+    return () => clearInterval(interval);
   }, []);
 
-  const prev = () => setCurrent((c) => (c - 1 + slides.length) % slides.length);
-  const next = () => setCurrent((c) => (c + 1) % slides.length);
+  const content = rotatingContent[idx];
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-20 py-10">
-      {/* Background glow */}
+    <section
+      className="relative min-h-screen flex flex-col overflow-hidden"
+      style={{
+        background:
+          "linear-gradient(135deg, hsl(230 70% 22%) 0%, hsl(217 91% 34%) 55%, hsl(199 89% 28%) 100%)",
+      }}
+    >
+      {/* ── Full-section background image ── */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: "var(--gradient-glow)" }}
+        style={{
+          backgroundImage: "url(/w2.jpg)",
+          backgroundSize: "cover",
+          backgroundPosition: "center right",
+        }}
       />
+
+      {/* Gradient over image — stronger left, fades right */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-[0.06] pointer-events-none"
+        className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(circle, hsl(217 91% 50%), transparent 70%)",
+            "linear-gradient(100deg, hsl(230 70% 18% / 0.92) 0%, hsl(217 91% 34% / 0.6) 50%, hsl(199 89% 28% / 0.4) 100%)",
         }}
       />
 
-      {/* Grid lines */}
+      {/* Noise grain */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.03]"
+        className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage:
-            "linear-gradient(hsl(217 91% 50%) 1px, transparent 1px), linear-gradient(90deg, hsl(217 91% 50%) 1px, transparent 1px)",
-          backgroundSize: "60px 60px",
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E")`,
+          opacity: 0.5,
         }}
       />
 
-      <div className="container mx-auto text-center relative z-10 px-4">
-        <h1
-          className="font-display text-5xl md:text-7xl lg:text-8xl font-bold leading-[1.05] mb-6 animate-fade-up text-foreground"
-          style={{ animationDelay: "0.1s" }}
-        >
-          Smarter Audits.
-          <br />
-          <span className="text-gradient-blue">Stronger Control.</span>
-        </h1>
-
-        {/* Subheadline */}
-        <p
-          className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 animate-fade-up"
-          style={{ animationDelay: "0.2s" }}
-        >
-          AuditWise is a role-based audit management platform that unifies your
-          audit lifecycle—from data ingestion to review and approval—with
-          powerful analytics, multi-database connectivity, and seamless team
-          collaboration.
-        </p>
-
-        {/* CTA Buttons */}
-        <div
-          className="flex flex-wrap items-center justify-center gap-4 mb-16 animate-fade-up"
-          style={{ animationDelay: "0.3s" }}
-        >
-          <a
-            href="#features"
-            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-primary-foreground bg-gradient-blue shadow-blue hover:opacity-90 transition-all hover:scale-105"
-          >
-            Explore Features <ArrowRight className="w-4 h-4" />
-          </a>
-          <a
-            href="#roles"
-            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-semibold border border-border bg-card text-foreground hover:border-primary/40 hover:bg-surface-2 transition-all"
-          >
-            View Roles
-          </a>
-        </div>
-
-        <div
-          className="flex flex-wrap justify-center gap-6 mb-16 animate-fade-up"
-          style={{ animationDelay: "0.4s" }}
-        >
-          {[
-            { icon: FileSpreadsheet, text: "Excel Import" },
-            { icon: Database, text: "Multi-DB Connect" },
-            { icon: Mail, text: "Email Workflows" },
-            { icon: CheckCircle, text: "Approval Engine" },
-          ].map(({ icon: Icon, text }) => (
-            <div
-              key={text}
-              className="flex items-center gap-2 text-sm text-muted-foreground"
-            >
-              <Icon className="w-4 h-4 text-primary" />
-              <span>{text}</span>
-            </div>
-          ))}
-        </div>
-
-        {/* Stats row */}
-        <div
-          className="grid grid-cols-2 md:grid-cols-4 gap-px border border-border rounded-2xl overflow-hidden bg-border max-w-3xl mx-auto animate-fade-up shadow-card"
-          style={{ animationDelay: "0.5s" }}
-        >
-          {stats.map(({ value, label }) => (
-            <div key={label} className="bg-card px-6 py-5 text-center">
-              <div className="font-display text-2xl font-bold text-primary">
-                {value}
-              </div>
-              <div className="text-xs text-muted-foreground mt-1">{label}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Dashboard Slider */}
+      {/* Radial bloom — top left */}
       <div
-        className="container mx-auto px-4 mt-20 animate-fade-up"
-        style={{ animationDelay: "0.6s" }}
-      >
-        <div className="relative max-w-5xl mx-auto">
-          {/* Glow behind */}
-          <div
-            className="absolute -inset-4 rounded-3xl opacity-20 blur-2xl"
-            style={{ background: "var(--gradient-blue)" }}
-          />
+        className="absolute top-0 left-0 w-[600px] h-[500px] pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at 0% 0%, hsl(217 100% 65% / 0.14) 0%, transparent 65%)",
+        }}
+      />
 
-          <div className="relative rounded-2xl overflow-hidden border border-primary/15 shadow-blue p-4">
-            {/* Slides */}
-            <div className="relative aspect-video overflow-hidden h-fit ">
-              {slides.map((slide, i) => (
-                <img
-                  key={i}
-                  src={slide.src}
-                  alt={slide.alt}
-                  className={`absolute inset-0 object-cover transition-opacity duration-700 ${
-                    i === current ? "opacity-100" : "opacity-0"
-                  }`}
-                />
-              ))}
-              <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
-            </div>
+      {/* Bottom-right counter-glow */}
+      <div
+        className="absolute bottom-0 right-0 w-[500px] h-[400px] pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at 100% 100%, hsl(199 89% 42% / 0.12) 0%, transparent 60%)",
+        }}
+      />
 
-            {/* Slider Controls */}
-            <button
-              onClick={prev}
-              className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-card/80 backdrop-blur border border-border flex items-center justify-center text-foreground hover:bg-card transition-colors z-10"
+      {/* ── Hero content — left-aligned ── */}
+      <div className="container mx-auto px-6 md:px-12 relative z-10 flex-1 flex flex-col justify-center pt-28 pb-16">
+        <div className="max-w-fit">
+          {/* Main heading — rotates every 4s */}
+          <h1
+            className="font-black leading-[0.92] tracking-tight mb-6"
+            style={{
+              fontFamily: "'Bebas Neue', 'Arial Black', Impact, sans-serif",
+              fontSize: "clamp(2.8rem, 5vw, 5rem)",
+              transition: "opacity 0.35s ease, transform 0.35s ease",
+              opacity: visible ? 1 : 0,
+              transform: visible ? "translateX(0)" : "translateX(-20px)",
+            }}
+          >
+            <span className="block text-white [-webkit-text-stroke:1px_black]">
+              {content.line1}
+            </span>
+            {/* <span className="block text-white">{content.line2}</span> */}
+            <span
+              className="block [-webkit-text-stroke:1px_black]"
+              style={{ color: "hsl(217 91% 72%)" }}
             >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <button
-              onClick={next}
-              className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-card/80 backdrop-blur border border-border flex items-center justify-center text-foreground hover:bg-card transition-colors z-10"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
+              {content.line2}
+            </span>
+            {/* <span className="block" style={{ color: "hsl(217 91% 72%)" }}>
+              {content.line4}
+            </span> */}
+          </h1>
 
-            {/* Dots */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-              {slides.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setCurrent(i)}
-                  className={`w-2.5 h-2.5 rounded-full transition-all ${
-                    i === current ? "bg-primary w-6" : "bg-foreground/30"
-                  }`}
-                />
-              ))}
-            </div>
+          {/* Subtext — rotates with heading */}
+          <p
+            className="text-sm md:text-base leading-relaxed mb-8 max-w-sm"
+            style={{
+              color: "hsl(0 0% 100% / 0.55)",
+              transition:
+                "opacity 0.35s ease 0.05s, transform 0.35s ease 0.05s",
+              opacity: visible ? 1 : 0,
+              transform: visible ? "translateY(0)" : "translateY(8px)",
+            }}
+          >
+            {content.sub}
+          </p>
+
+          {/* CTA */}
+          <div style={{ animation: "fadeUp 0.6s ease 0.72s both" }}>
+            <a
+              href="#contact"
+              className="group inline-flex items-center gap-2 px-6 py-3 text-sm font-black uppercase tracking-widest rounded-sm transition-all duration-200 hover:opacity-85"
+              style={{ background: "#fff", color: "hsl(217 91% 38%)" }}
+            >
+              Request Demo
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </a>
           </div>
 
-          {/* Slide caption */}
-          <p className="text-center text-sm text-muted-foreground mt-4 font-medium">
-            {slides[current].alt}
-          </p>
+          {/* Feature tags */}
+          <div
+            className="flex flex-wrap gap-2 mt-8"
+            style={{ animation: "fadeUp 0.6s ease 0.85s both" }}
+          >
+            {[
+              { icon: FileSpreadsheet, text: "Excel Import" },
+              { icon: Database, text: "Multi-DB" },
+              { icon: Mail, text: "Email Workflows" },
+              { icon: CheckCircle, text: "Approval Engine" },
+            ].map(({ icon: Icon, text }) => (
+              <div
+                key={text}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm"
+                style={{
+                  border: "1px solid hsl(0 0% 100% / 0.1)",
+                  background: "hsl(0 0% 100% / 0.05)",
+                  backdropFilter: "blur(8px)",
+                }}
+              >
+                <Icon
+                  className="w-3 h-3"
+                  style={{ color: "hsl(217 91% 75%)" }}
+                />
+                <span
+                  className="text-[10px] font-bold uppercase tracking-widest"
+                  style={{ color: "hsl(0 0% 100% / 0.55)" }}
+                >
+                  {text}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
+      {/* ── Wavy bottom edge ── */}
+      <div
+        className="absolute bottom-0 left-0 right-0 pointer-events-none"
+        style={{ lineHeight: 0 }}
+      >
+        <svg
+          viewBox="0 0 1440 80"
+          preserveAspectRatio="none"
+          xmlns="http://www.w3.org/2000/svg"
+          style={{ display: "block", width: "100%", height: 80 }}
+        >
+          <path
+            d="M0,40 C180,80 360,0 540,40 C720,80 900,0 1080,40 C1260,80 1380,20 1440,40 L1440,80 L0,80 Z"
+            fill="hsl(var(--background))"
+          />
+        </svg>
+      </div>
+
+      <style>{`
+        @keyframes slideInLeft {
+          from { opacity: 0; transform: translateX(-40px); }
+          to   { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes fadeUp {
+          from { opacity: 0; transform: translateY(20px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeDown {
+          from { opacity: 0; transform: translateY(-12px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
     </section>
   );
 };
