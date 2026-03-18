@@ -1,23 +1,14 @@
-import { Crown, UserCog, ClipboardList, Eye, Check } from "lucide-react";
+import { UserCog, ClipboardList, Eye, Check } from "lucide-react";
 
 const roles = [
-  
   {
     icon: UserCog,
     title: "Admin",
-    badge: "Organization Control",
-    badgeStyle: {
-      color: "hsl(217 91% 48%)",
-      borderColor: "hsl(217 91% 48% / 0.3)",
-      background: "hsl(217 91% 48% / 0.06)",
-    },
-    iconStyle: {
-      background: "hsl(217 91% 48% / 0.1)",
-      borderColor: "hsl(217 91% 48% / 0.25)",
-      color: "hsl(217 91% 48%)",
-    },
+    accent: "hsl(217 91% 48%)",
+    accentBg: "hsl(217 91% 48% / 0.08)",
+    accentBorder: "hsl(217 91% 48% / 0.25)",
     description:
-      "Organization-level administrators who oversee the audit operations within their domain. Admins manage auditors and reviewers, configure team settings, and maintain oversight of all audits in their organization.",
+      "Organization-level administrators who oversee audit operations within their domain. Admins manage auditors and reviewers, configure team settings, and maintain oversight of all audits.",
     permissions: [
       "Manage Auditor & Reviewer accounts",
       "View org audit reports",
@@ -28,19 +19,11 @@ const roles = [
   {
     icon: ClipboardList,
     title: "Auditor",
-    badge: "Audit Creator",
-    badgeStyle: {
-      color: "hsl(199 89% 42%)",
-      borderColor: "hsl(199 89% 42% / 0.3)",
-      background: "hsl(199 89% 42% / 0.06)",
-    },
-    iconStyle: {
-      background: "hsl(199 89% 42% / 0.1)",
-      borderColor: "hsl(199 89% 42% / 0.25)",
-      color: "hsl(199 89% 42%)",
-    },
+    accent: "hsl(199 89% 42%)",
+    accentBg: "hsl(199 89% 42% / 0.08)",
+    accentBorder: "hsl(199 89% 42% / 0.25)",
     description:
-      "The core operators who build and manage audit workflows. Auditors import data via Excel or live database connections, manage their reviewer panel, and send audit packages via email for review.",
+      "Core operators who build and manage audit workflows. Auditors import data via Excel or live database connections, manage their reviewer panel, and send audit packages via email.",
     permissions: [
       "Create audits from Excel files",
       "Connect to multiple databases",
@@ -53,19 +36,11 @@ const roles = [
   {
     icon: Eye,
     title: "Reviewer",
-    badge: "Review & Approve",
-    badgeStyle: {
-      color: "hsl(142 60% 38%)",
-      borderColor: "hsl(142 60% 38% / 0.3)",
-      background: "hsl(142 60% 38% / 0.06)",
-    },
-    iconStyle: {
-      background: "hsl(142 60% 38% / 0.1)",
-      borderColor: "hsl(142 60% 38% / 0.25)",
-      color: "hsl(142 60% 38%)",
-    },
+    accent: "hsl(142 60% 38%)",
+    accentBg: "hsl(142 60% 38% / 0.08)",
+    accentBorder: "hsl(142 60% 38% / 0.25)",
     description:
-      "Specialized users who receive and review audit items assigned by auditors. Reviewers access their dashboard via secure email credentials and can approve or reject items with full commentary.",
+      "Specialized users who receive and review audit items assigned by auditors. Reviewers access their dashboard via secure email credentials and approve or reject items.",
     permissions: [
       "View assigned audit items",
       "Approve or reject entries",
@@ -76,174 +51,211 @@ const roles = [
 
 const RolesSection = () => {
   return (
-    <section id="roles" className="py-10 relative bg-surface-2">
-      <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/25 to-transparent" />
-      <div className="absolute left-0 right-0 bottom-0 h-px bg-gradient-to-r from-transparent via-primary/25 to-transparent" />
+    <section id="roles" className="relative overflow-hidden">
+      <style>{`
+        .role-flip-card { perspective: 1000px; }
+        .role-flip-inner {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+          transform-style: preserve-3d;
+        }
+        .role-flip-card:hover .role-flip-inner { transform: rotateY(180deg); }
+        .role-flip-front,
+        .role-flip-back {
+          position: absolute;
+          inset: 0;
+          -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+          border-radius: 1rem;
+        }
+        .role-flip-back { transform: rotateY(180deg); }
+      `}</style>
 
-      <div className="container mx-auto px-4">
+      {/* Background cross-hatch */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.025]"
+        style={{
+          backgroundImage:
+            "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
+          backgroundSize: "48px 48px",
+        }}
+      />
+
+      <div className="container px-6 relative z-10">
         {/* Header */}
-        <div className="text-center mb-20">
-          <h2 className="font-display text-4xl md:text-5xl font-bold mb-5">
-            Built for{" "}
-            <span className="text-gradient-blue">Every Stakeholder</span>
+        <div className="flex flex-col items-center gap-8 pb-12">
+          <h2
+            className="text-4xl md:text-5xl font-black "
+            // style={{ fontFamily: "'Bebas Neue', 'Arial Black', sans-serif" }}
+          >
+            BUILT FOR EVERY
+            {/* <br /> */}
+            <span className="text-gradient-blue"> STAKEHOLDER</span>
           </h2>
-          <p className="text-muted-foreground text-lg max-w-xl mx-auto">
+          <p className="text-sm text-muted-foreground leading-relaxed">
             AuditWise's role-based system ensures every team member has the
             right tools and visibility—no more, no less.
           </p>
         </div>
 
-        {/* Roles grid */}
-        <div className="grid md:grid-cols-2 gap-6">
+        {/* Flip cards */}
+        <div className="grid md:grid-cols-3 gap-6" style={{ minHeight: 360 }}>
           {roles.map((role) => {
             const Icon = role.icon;
             return (
               <div
                 key={role.title}
-                className="group relative rounded-2xl border border-border bg-card p-8 hover:border-primary/20 transition-all duration-300 overflow-hidden shadow-card"
+                className="role-flip-card"
+                style={{ height: 360 }}
               >
-                {/* Subtle animated bg */}
-                <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                  style={{
-                    background:
-                      "radial-gradient(ellipse 60% 60% at 20% 20%, hsl(217 91% 50% / 0.03), transparent)",
-                  }}
-                />
-
-                {/* Header */}
-                <div className="flex items-start gap-4 mb-6">
-                  <div
-                    className="w-14 h-14 rounded-xl flex items-center justify-center border flex-shrink-0"
-                    style={{
-                      background: role.iconStyle.background,
-                      borderColor: role.iconStyle.borderColor,
-                    }}
-                  >
-                    <Icon
-                      className="w-7 h-7"
-                      style={{ color: role.iconStyle.color }}
-                    />
-                  </div>
-                  <div className="flex-1">
+                <div className="role-flip-inner" style={{ height: 360 }}>
+                  {/* ── FRONT ── */}
+                  <div className="role-flip-front border border-border bg-card flex flex-col items-center justify-center gap-5 p-8">
+                    {/* Top accent bar */}
                     <div
-                      className="inline-flex items-center text-xs font-medium border px-2.5 py-1 rounded-full mb-1"
-                      style={role.badgeStyle}
+                      className="absolute top-0 left-0 right-0 h-1 rounded-t-2xl"
+                      style={{ background: role.accent }}
+                    />
+
+                    {/* Large icon circle */}
+                    <div
+                      className="w-24 h-24 rounded-full flex items-center justify-center border-2"
+                      style={{
+                        background: role.accentBg,
+                        borderColor: role.accentBorder,
+                      }}
                     >
-                      {role.badge}
+                      <Icon
+                        className="w-10 h-10"
+                        style={{ color: role.accent }}
+                      />
                     </div>
-                    <h3 className="font-display text-2xl font-bold">
+
+                    {/* Title */}
+                    <h3
+                      className="text-5xl font-black tracking-tight text-center"
+                      style={{
+                        fontFamily: "'Bebas Neue', 'Arial Black', sans-serif",
+                      }}
+                    >
                       {role.title}
                     </h3>
-                  </div>
-                </div>
 
-                {/* Description */}
-                <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-                  {role.description}
-                </p>
-
-                {/* Permissions */}
-                <div className="grid grid-cols-1 gap-2">
-                  {role.permissions.map((perm) => (
+                    {/* Accent line */}
                     <div
-                      key={perm}
-                      className="flex items-center gap-2.5 text-sm text-muted-foreground"
-                    >
-                      <div
-                        className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 border"
-                        style={{
-                          background: role.iconStyle.background,
-                          borderColor: role.iconStyle.borderColor,
-                        }}
-                      >
-                        <Check
-                          className="w-3 h-3"
-                          style={{ color: role.iconStyle.color }}
-                        />
+                      className="w-10 h-[2px]"
+                      style={{ background: role.accent }}
+                    />
+
+                    {/* Hint */}
+                    <p className="text-[10px] text-muted-foreground/40 uppercase tracking-[0.2em]">
+                      Hover to explore
+                    </p>
+                  </div>
+
+                  {/* ── BACK ── */}
+                  <div
+                    className="role-flip-back border flex flex-col justify-between p-7"
+                    style={{
+                      background: role.accentBg,
+                      borderColor: role.accentBorder,
+                    }}
+                  >
+                    {/* Top accent bar */}
+                    <div
+                      className="absolute top-0 left-0 right-0 h-1 rounded-t-2xl"
+                      style={{ background: role.accent }}
+                    />
+
+                    <div>
+                      {/* Icon + title row */}
+                      <div className="flex items-center gap-3 mb-5 pt-1">
+                        <div
+                          className="w-10 h-10 rounded-lg flex items-center justify-center border shrink-0"
+                          style={{
+                            background: "hsl(var(--background)/0.55)",
+                            borderColor: role.accentBorder,
+                          }}
+                        >
+                          <Icon
+                            className="w-5 h-5"
+                            style={{ color: role.accent }}
+                          />
+                        </div>
+                        <h3
+                          className="text-3xl font-black tracking-tight"
+                          style={{
+                            fontFamily:
+                              "'Bebas Neue', 'Arial Black', sans-serif",
+                            color: role.accent,
+                          }}
+                        >
+                          {role.title}
+                        </h3>
                       </div>
-                      {perm}
+
+                      {/* Description */}
+                      <p className="text-xs text-muted-foreground leading-relaxed mb-5">
+                        {role.description}
+                      </p>
                     </div>
-                  ))}
+
+                    {/* Permissions */}
+                    <ul className="space-y-2">
+                      {role.permissions.map((perm) => (
+                        <li
+                          key={perm}
+                          className="flex items-start gap-2.5 text-xs text-muted-foreground"
+                        >
+                          <span
+                            className="mt-0.5 w-4 h-4 rounded-sm flex items-center justify-center shrink-0 border"
+                            style={{
+                              background: "hsl(var(--background)/0.5)",
+                              borderColor: role.accentBorder,
+                            }}
+                          >
+                            <Check
+                              className="w-2.5 h-2.5"
+                              style={{ color: role.accent }}
+                            />
+                          </span>
+                          {perm}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               </div>
             );
           })}
         </div>
 
-        {/* Role hierarchy visual */}
-        <div className="mt-16 rounded-2xl border border-border bg-card p-8 text-center shadow-card">
-          <p className="text-sm text-muted-foreground mb-6 font-medium uppercase tracking-widest">
-            Role Hierarchy
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            {[
-              {
-                label: "Superadmin",
-                style: {
-                  color: "hsl(270 70% 55%)",
-                  borderColor: "hsl(270 70% 55% / 0.3)",
-                  background: "hsl(270 70% 55% / 0.06)",
-                },
-              },
-              {
-                label: "→",
-                style: {
-                  color: "hsl(var(--muted-foreground))",
-                  borderColor: "transparent",
-                  background: "transparent",
-                },
-              },
-              {
-                label: "Admin",
-                style: {
-                  color: "hsl(217 91% 48%)",
-                  borderColor: "hsl(217 91% 48% / 0.3)",
-                  background: "hsl(217 91% 48% / 0.06)",
-                },
-              },
-              {
-                label: "→",
-                style: {
-                  color: "hsl(var(--muted-foreground))",
-                  borderColor: "transparent",
-                  background: "transparent",
-                },
-              },
-              {
-                label: "Auditor",
-                style: {
-                  color: "hsl(199 89% 42%)",
-                  borderColor: "hsl(199 89% 42% / 0.3)",
-                  background: "hsl(199 89% 42% / 0.06)",
-                },
-              },
-              {
-                label: "→",
-                style: {
-                  color: "hsl(var(--muted-foreground))",
-                  borderColor: "transparent",
-                  background: "transparent",
-                },
-              },
-              {
-                label: "Reviewer",
-                style: {
-                  color: "hsl(142 60% 38%)",
-                  borderColor: "hsl(142 60% 38% / 0.3)",
-                  background: "hsl(142 60% 38% / 0.06)",
-                },
-              },
-            ].map((item, i) => (
+        {/* Hierarchy strip */}
+        <div className="mt-10 border border-foreground/8 p-6 flex flex-wrap items-center justify-center gap-3">
+          <span className="text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground/50 mr-4">
+            Hierarchy
+          </span>
+          {[
+            { label: "Admin", color: "hsl(217 91% 48%)" },
+            { label: "Auditor", color: "hsl(199 89% 42%)" },
+            { label: "Reviewer", color: "hsl(142 60% 38%)" },
+          ].map((item, i) => (
+            <div key={item.label} className="flex items-center gap-3">
+              {i > 0 && <span className="text-foreground/20 text-sm">—</span>}
               <span
-                key={i}
-                className="text-sm font-semibold px-4 py-2 rounded-full border"
-                style={item.style}
+                className="text-xs font-bold uppercase tracking-widest px-3 py-1.5 border-l-2"
+                style={{
+                  color: item.color,
+                  borderColor: item.color,
+                  background: `${item.color}0d`,
+                }}
               >
                 {item.label}
               </span>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

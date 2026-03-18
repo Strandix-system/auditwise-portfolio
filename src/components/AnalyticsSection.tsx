@@ -114,10 +114,9 @@ const AnalyticsSection = () => {
         }}
       />
 
-      <div className="container mx-auto px-4 relative z-10">
-        {/* Header */}
-        <div className="text-center mb-20">
-          <h2 className="font-display text-4xl md:text-5xl font-bold mb-5">
+      <div className="container px-4 relative z-10">
+        <div className="text-center mb-5">
+          <h2 className="text-4xl md:text-5xl font-bold mb-5">
             Insight at Every <span className="text-gradient-blue">Level</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-xl mx-auto">
@@ -126,9 +125,7 @@ const AnalyticsSection = () => {
           </p>
         </div>
 
-        {/* Mock analytics UI */}
         <div className="max-w-5xl mx-auto rounded-2xl border border-border bg-card overflow-hidden shadow-card">
-          {/* Top bar */}
           <div className="flex items-center gap-2 px-5 py-3 border-b border-border bg-surface-2">
             <div className="w-3 h-3 rounded-full bg-destructive/70" />
             <div
@@ -144,7 +141,7 @@ const AnalyticsSection = () => {
           <div className="p-6 space-y-6">
             {/* Section label */}
             <div>
-              <h3 className="font-display text-lg font-semibold text-foreground">
+              <h3 className=" text-lg font-semibold text-foreground">
                 Organization - Analytics
               </h3>
             </div>
@@ -169,7 +166,7 @@ const AnalyticsSection = () => {
                       />
                     </div>
                     <div>
-                      <p className="font-display text-2xl font-bold text-foreground leading-none">
+                      <p className=" text-2xl font-bold text-foreground leading-none">
                         {m.value}
                       </p>
                       <p className="text-xs text-muted-foreground mt-1 leading-tight">
@@ -183,7 +180,7 @@ const AnalyticsSection = () => {
 
             {/* Organization Analytics Breakdown */}
             <div>
-              <h3 className="font-display text-lg font-semibold text-foreground mb-4">
+              <h3 className=" text-lg font-semibold text-foreground mb-4">
                 Organization Analytics Breakdown
               </h3>
 
