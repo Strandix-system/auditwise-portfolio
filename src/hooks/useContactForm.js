@@ -21,7 +21,7 @@ const contactSchema = yup.object({
 
   contact: yup
     .string()
-    .matches(/^\+?[0-9\s\-()]{7,15}$/, "Please enter a valid phone number")
+    .matches(/^[0-9]{10}$/, "Contact number must be exactly 10 digits")
     .required("Contact number is required"),
 
   additionalInfo: yup
@@ -47,12 +47,13 @@ export function useContactForm() {
       contact: "",
       additionalInfo: "",
     },
+    mode: "all",
   });
 
   const mutation = useMutation({
     mutationFn: submitContactForm,
     onSuccess: () => {
-      reset(); // Clear form on success
+      reset();
     },
   });
 
