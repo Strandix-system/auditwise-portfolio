@@ -1,4 +1,4 @@
-import { Shield, Target, Users, Zap, Globe, Award } from "lucide-react";
+import { Shield, Target, Users, Zap, BarChart3 } from "lucide-react";
 
 const stats = [
   { value: "10K+", label: "Audits Processed" },
@@ -12,42 +12,42 @@ const team = [
     name: "Compliance Teams",
     description:
       "Built alongside compliance professionals who needed a faster, more reliable way to manage large-scale review cycles.",
-    icon: "🏛️",
+    icon: Shield,
     accent: "hsl(217 91% 48%)",
   },
   {
     name: "Finance Auditors",
     description:
       "Designed to handle the precision demands of financial auditing — from import to final sign-off.",
-    icon: "💼",
+    icon: Target,
     accent: "hsl(38 92% 52%)",
   },
   {
     name: "IT & Operations",
     description:
       "Engineered for reliability and scalability, supporting teams that audit technical infrastructure and operational data.",
-    icon: "⚙️",
+    icon: Users,
     accent: "hsl(142 60% 38%)",
   },
   {
     name: "Risk Management",
     description:
       "Helps identify, track, and mitigate risks with structured audit workflows and real-time visibility.",
-    icon: "⚠️",
+    icon: Zap,
     accent: "hsl(0 84% 60%)",
   },
   {
     name: "Internal Audit Teams",
     description:
       "Streamlines internal audits with centralized data, faster reviews, and consistent reporting standards.",
-    icon: "📊",
+    icon: BarChart3,
     accent: "hsl(262 83% 58%)",
   },
   {
     name: "External Consultants",
     description:
       "Enables secure collaboration with external auditors while maintaining strict access control and audit trails.",
-    icon: "🤝",
+    icon: Users,
     accent: "hsl(199 89% 42%)",
   },
 ];
@@ -166,7 +166,9 @@ const About = () => {
                 key={item.name}
                 className="group relative rounded-2xl border border-border bg-card p-8 hover:shadow-lg hover:border-primary/40 transition-all duration-300 overflow-hidden"
               >
-                <div className="text-4xl mb-4">{item.icon}</div>
+                <div className="text-4xl mb-4">
+                  <item.icon className="w-10 h-10" />
+                </div>
                 <h4
                   className="text-xl font-bold mb-3"
                   style={{ color: item.accent }}

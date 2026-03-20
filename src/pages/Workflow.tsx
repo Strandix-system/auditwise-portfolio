@@ -1,4 +1,13 @@
-import { Upload, Send, ClipboardCheck, TrendingUp } from "lucide-react";
+import {
+  Upload,
+  Send,
+  ClipboardCheck,
+  TrendingUp,
+  FolderDown,
+  Users,
+  BarChart3,
+  Eye,
+} from "lucide-react";
 import CreateAuditImg from "../assets/create-audit.png";
 import EmailResponseImg from "../assets/email-response.png";
 import ReviewerActionImg from "../assets/reviewer-action.png";
@@ -275,17 +284,17 @@ const Workflow = () => {
             <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-primary to-transparent transform -translate-x-1/2 hidden md:block" />
             <div className="space-y-12">
               {[
-                { title: "Data Import", time: "~5 minutes", icon: "📥" },
+                { title: "Data Import", time: "~5 minutes", icon: FolderDown },
                 {
                   title: "Reviewer Assignment",
                   time: "~2 minutes",
-                  icon: "👥",
+                  icon: Users,
                 },
-                { title: "Review Period", time: "1-7 days", icon: "👁️" },
+                { title: "Review Period", time: "1-7 days", icon: Eye },
                 {
                   title: "Analysis & Reporting",
                   time: "Real-time",
-                  icon: "📊",
+                  icon: BarChart3,
                 },
               ].map((item, i) => (
                 <div key={item.title} className="flex items-center gap-8">
@@ -300,7 +309,7 @@ const Workflow = () => {
                         </p>
                       </div>
                       <div className="w-12 h-12 rounded-full border-2 border-primary bg-card flex items-center justify-center z-10 text-xl">
-                        {item.icon}
+                        <item.icon className="w-6 h-6 text-primary" />
                       </div>
                       <div className="flex-1" />
                     </>
@@ -308,7 +317,7 @@ const Workflow = () => {
                     <>
                       <div className="flex-1" />
                       <div className="w-12 h-12 rounded-full border-2 border-primary bg-card flex items-center justify-center z-10 text-xl">
-                        {item.icon}
+                        <item.icon className="w-6 h-6 text-primary" />
                       </div>
                       <div className="flex-1">
                         <h4 className="font-bold text-foreground">

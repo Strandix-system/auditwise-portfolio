@@ -147,7 +147,7 @@ const HeroSection = () => {
           {/* CTA */}
           <div style={{ animation: "fadeUp 0.6s ease 0.72s both" }}>
             <a
-              href="#contact"
+              href="/contact"
               className="group inline-flex items-center gap-2 px-6 py-3 text-sm font-black uppercase tracking-widest rounded-sm transition-all duration-200 hover:opacity-85"
               style={{ background: "#fff", color: "hsl(217 91% 38%)" }}
             >
