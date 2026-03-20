@@ -6,6 +6,9 @@ import {
   Shield,
   BarChart3,
   Lock,
+  Upload,
+  Users,
+  CheckCircle2,
 } from "lucide-react";
 import HeroSection from "@/components/HeroSection";
 import ImageSlider from "@/components/ImageSlider";
@@ -162,30 +165,32 @@ const Home = () => {
                 step: "1",
                 title: "Upload Data",
                 description: "Import Excel files or connect your databases",
-                icon: "📤",
+                icon: Upload,
               },
               {
                 step: "2",
                 title: "Assign Reviewers",
                 description: "Send audits to your panel with secure access",
-                icon: "👥",
+                icon: Users,
               },
               {
                 step: "3",
                 title: "Review & Approve",
                 description: "Team reviews items and provides feedback",
-                icon: "✅",
+                icon: CheckCircle2,
               },
               {
                 step: "4",
                 title: "View Analytics",
                 description: "Track progress and get compliance reports",
-                icon: "📊",
+                icon: BarChart3,
               },
             ].map((item) => (
               <div key={item.step} className="relative">
                 <div className="rounded-xl border border-border bg-card p-8 text-center h-full">
-                  <div className="text-5xl mb-4">{item.icon}</div>
+                  <div className="text-5xl mb-4 flex items-center justify-center">
+                    <item.icon className="w-10 h-10" />
+                  </div>
                   <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-primary text-white font-bold mb-4">
                     {item.step}
                   </div>

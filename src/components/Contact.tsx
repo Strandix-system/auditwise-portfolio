@@ -74,7 +74,7 @@ function ContactForm() {
         <input
           {...register("contact")}
           type="tel"
-          placeholder="+1 (555) 000-0000"
+          placeholder="Enter your contact number"
           className={inputBase}
         />
       </Field>
@@ -166,7 +166,6 @@ const contactDetails = [
 const Contact = () => {
   return (
     <div className="bg-background text-foreground">
-      {/* Hero Header Section with Wavy Bottom */}
       <section className="relative pt-24 pb-32 bg-surface-2">
         <div
           className="absolute inset-0 pointer-events-none"
@@ -187,7 +186,6 @@ const Contact = () => {
           </div>
         </div>
 
-        {/* Wavy Bottom Edge */}
         <div
           className="absolute bottom-0 left-0 right-0 pointer-events-none"
           style={{ lineHeight: 0 }}
@@ -206,7 +204,6 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* Main Contact Section — illustration left, form right */}
       <section className="py-10 relative">
         <div
           className="absolute inset-0 pointer-events-none"
@@ -226,7 +223,6 @@ const Contact = () => {
         <div className="container mx-auto px-6 relative z-10">
           <div className="rounded-2xl border border-border bg-card overflow-hidden">
             <div className="grid lg:grid-cols-2 gap-0">
-              {/* Left — illustration + tagline */}
               <div
                 className="p-12 flex flex-col items-center justify-center gap-8 border-b lg:border-b-0 lg:border-r border-border"
                 style={{
@@ -236,7 +232,6 @@ const Contact = () => {
                 <ContactIllustration />
               </div>
 
-              {/* Right — form */}
               <div className="py-5 px-12 flex flex-col justify-center">
                 <div className="">
                   <h3 className="text-3xl font-bold text-foreground mb-2">

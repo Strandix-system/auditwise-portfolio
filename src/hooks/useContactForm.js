@@ -10,7 +10,6 @@ import { submitContactForm } from "../api/contactApi";
 const contactSchema = yup.object({
   name: yup
     .string()
-    .min(2, "Name must be at least 2 characters")
     .max(60, "Name must be at most 60 characters")
     .required("Name is required"),
 

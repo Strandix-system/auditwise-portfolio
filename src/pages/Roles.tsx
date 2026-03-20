@@ -1,4 +1,12 @@
-import { UserCog, ClipboardList, Eye, Check, ArrowRight } from "lucide-react";
+import {
+  UserCog,
+  ClipboardList,
+  Eye,
+  Check,
+  ArrowRight,
+  Key,
+  Zap,
+} from "lucide-react";
 import HeroSection from "@/components/HeroSection";
 
 const roles = [
@@ -264,26 +272,28 @@ const Roles = () => {
                 title: "Granular Control",
                 description:
                   "Define precisely what each role can see, create, edit, and delete.",
-                icon: "🔐",
+                icon: Key,
               },
               {
                 title: "Audit Logging",
                 description:
                   "Every action is logged with user, timestamp, and changes made.",
-                icon: "📋",
+                icon: ClipboardList,
               },
               {
                 title: "Dynamic Permissions",
                 description:
                   "Update permissions in real-time without restarting the system.",
-                icon: "⚡",
+                icon: Zap,
               },
             ].map((feature) => (
               <div
                 key={feature.title}
                 className="rounded-xl border border-border bg-card p-6"
               >
-                <div className="text-3xl mb-3">{feature.icon}</div>
+                <div className="text-3xl mb-3">
+                  <feature.icon className="w-8 h-8 text-indigo-700" />
+                </div>
                 <h4 className="font-bold text-foreground mb-2">
                   {feature.title}
                 </h4>
